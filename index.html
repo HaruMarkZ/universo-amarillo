@@ -1,39 +1,242 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universo Floral 🌌🌻</title>
-    <!-- Jalamos el CSS desde su nueva carpeta -->
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxia de Flores Amarillas 🌻</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #020108;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, sans-serif;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    #galaxy-canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ui {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-audio {
+      background: rgba(255, 202, 40, 0.15);
+      border: 1px solid #ffca28;
+      color: #ffca28;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 202, 40, 0.2);
+    }
+
+    .btn-audio:hover {
+      background: rgba(255, 202, 40, 0.3);
+      transform: scale(1.05);
+    }
+
+    .mensaje {
+      color: #fff59d;
+      font-size: 18px;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255, 202, 40, 0.6);
+      opacity: 0.9;
+      max-width: 90vw;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Contenedor del Espacio Profundo y Nebulosas -->
-    <div class="space-container">
-        <div class="nebula purple-nebula"></div>
-        <div class="nebula gold-nebula"></div>
-    </div>
+  <canvas id="galaxy-canvas"></canvas>
 
-    <!-- Contenedor de la Interfaz Estilizada -->
-    <div class="interface-wrapper">
-        <div class="glass-card">
-            <h1 class="cosmic-title">Universo Amarillo</h1>
-            <p class="cosmic-subtitle">Un detalle especial creado en el espacio profundo</p>
-        </div>
-        
-        <!-- Lienzo interactivo para las flores y el polvo cósmico -->
-        <canvas id="galaxy-canvas"></canvas>
+  <div class="ui">
+    <p class="mensaje">Para todas las chicas que no han recibido sus flores amarillas 🌻</p>
+    <button class="btn-audio" onclick="toggleAudio()">🎵 Activar Sonido</button>
+  </div>
 
-        <!-- Controlador de Audio Organizado -->
-        <div class="music-controller">
-            <!-- La música apuntará a la carpeta music/ cuando subas tu canción -->
-            <audio id="bg-song" loop src="music/tu-cancion.mp3"></audio>
-            <button class="btn-audio" onclick="toggleAudio()">🎵 Activar Sonido</button>
-        </div>
-    </div>
+  <!-- Pon aquí tu canción (opcional) -->
+  <!-- <audio id="bg-song" loop src="musica.mp3"></audio> -->
+  <audio id="bg-song" loop>
+    <!-- Si no tienes archivo, puedes dejarlo vacío o usar un link de internet -->
+  </audio>
 
-    <!-- Jalamos la lógica JS desde su nueva carpeta -->
-    <script src="js/main.js"></script>
+  <script>
+    const canvas = document.getElementById('galaxy-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Clase encargada de generar chispas estelares doradas
+    class SpaceDust {
+      constructor() {
+        this.reset();
+        this.y = Math.random() * height;
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + 20;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = Math.random() * 0.6 + 0.15;
+        this.speedX = Math.sin(Math.random() * Math.PI) * 0.2;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -20) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = '#ffca28';
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#ffca28';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Llenamos el espacio con 100 partículas de polvo
+    for (let i = 0; i < 100; i++) {
+      particles.push(new SpaceDust());
+    }
+
+    // Algoritmo matemático para el renderizado procedural de las flores amarillas
+    function drawElegantFlower(centerX, centerY, size, rotationOffset) {
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(rotationOffset);
+
+      const petals = 14;
+      for (let i = 0; i < petals; i++) {
+        ctx.rotate((Math.PI * 2) / petals);
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-size / 2, -size / 2, -size / 2.5, -size, 0, -size);
+        ctx.bezierCurveTo(size / 2.5, -size, size / 2, -size / 2, 0, 0);
+
+        let petalGrad = ctx.createLinearGradient(0, 0, 0, -size);
+        petalGrad.addColorStop(0, '#e65100');
+        petalGrad.addColorStop(0.4, '#ffb300');
+        petalGrad.addColorStop(1, '#fff59d');
+
+        ctx.fillStyle = petalGrad;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#ffb300';
+        ctx.fill();
+      }
+
+      // Botón o centro orgánico de la flor
+      ctx.beginPath();
+      ctx.arc(0, 0, size / 3.8, 0, Math.PI * 2);
+      let centerGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, size / 3.8);
+      centerGrad.addColorStop(0, '#2e1c16');
+      centerGrad.addColorStop(0.7, '#4e342e');
+      centerGrad.addColorStop(1, '#1a0c08');
+      ctx.fillStyle = centerGrad;
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    let globalRotation = 0;
+
+    // Bucle de renderizado óptimo a 60fps
+    function render() {
+      ctx.fillStyle = 'rgba(2, 1, 8, 0.08)';
+      ctx.fillRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      const cx = width / 2;
+      const cy = height * 0.7;
+
+      globalRotation += 0.003; // Rotación lenta y sutil
+
+      // Tallos
+      ctx.save();
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = '#1b5e20';
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = '#4caf50';
+
+      // Tallo Izquierdo
+      ctx.beginPath();
+      ctx.moveTo(cx, height);
+      ctx.quadraticCurveTo(cx - 100, cy + 120, cx - 110, cy + 50);
+      ctx.stroke();
+
+      // Tallo Derecho
+      ctx.beginPath();
+      ctx.moveTo(cx, height);
+      ctx.quadraticCurveTo(cx + 100, cy + 120, cx + 110, cy + 50);
+      ctx.stroke();
+
+      // Tallo Central
+      ctx.beginPath();
+      ctx.moveTo(cx, height);
+      ctx.quadraticCurveTo(cx, cy + 90, cx, cy - 50);
+      ctx.stroke();
+      ctx.restore();
+
+      // Flores
+      drawElegantFlower(cx - 110, cy + 50, 45, -globalRotation);
+      drawElegantFlower(cx + 110, cy + 50, 45, globalRotation);
+      drawElegantFlower(cx, cy - 50, 60, globalRotation * 0.5);
+
+      requestAnimationFrame(render);
+    }
+
+    function toggleAudio() {
+      const song = document.getElementById('bg-song');
+      const btn = document.querySelector('.btn-audio');
+
+      if (song.paused) {
+        song.play().catch(() => console.log("Se requiere interacción del usuario"));
+        btn.innerText = "⏸️ Pausar Sonido";
+      } else {
+        song.pause();
+        btn.innerText = "🎵 Activar Sonido";
+      }
+    }
+
+    render();
+  </script>
 </body>
 </html>
