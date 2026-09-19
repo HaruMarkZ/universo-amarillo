@@ -1,0 +1,156 @@
+const canvas = document.getElementById('galaxy-canvas');
+const ctx = canvas.getContext('2d');
+
+let width, height;
+let particles = [];
+
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Clase encargada de generar chispas estelares doradas
+class SpaceDust {
+    constructor() {
+        this.reset();
+        this.y = Math.random() * height;
+    }
+
+    reset() {
+        this.x = Math.random() * width;
+        this.y = height + 20;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = Math.random() * 0.6 + 0.15;
+        this.speedX = Math.sin(Math.random() * Math.PI) * 0.2;
+        this.alpha = Math.random() * 0.5 + 0.2;
+    }
+
+    update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -20) this.reset();
+    }
+
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = '#ffca28';
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#ffca28';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+// Llenamos el espacio con 100 partículas de polvo
+for(let i = 0; i < 100; i++) {
+    particles.push(new SpaceDust());
+}
+
+// Algoritmo matemático para el renderizado procedural de las flores amarillas
+function drawElegantFlower(centerX, centerY, size, rotationOffset) {
+    ctx.save();
+    ctx.translate(centerX, centerY);
+    ctx.rotate(rotationOffset);
+    
+    const petals = 14; 
+    for (let i = 0; i < petals; i++) {
+        ctx.rotate((Math.PI * 2) / petals);
+        
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-size/2, -size/2, -size/2.5, -size, 0, -size);
+        ctx.bezierCurveTo(size/2.5, -size, size/2, -size/2, 0, 0);
+        
+        let petalGrad = ctx.createLinearGradient(0, 0, 0, -size);
+        petalGrad.addColorStop(0, '#e65100'); 
+        petalGrad.addColorStop(0.4, '#ffb300'); 
+        petalGrad.addColorStop(1, '#fff59d'); 
+        
+        ctx.fillStyle = petalGrad;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#ffb300';
+        ctx.fill();
+    }
+
+    // Botón o centro orgánico de la flor
+    ctx.beginPath();
+    ctx.arc(0, 0, size / 3.8, 0, Math.PI * 2);
+    let centerGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, size / 3.8);
+    centerGrad.addColorStop(0, '#2e1c16');
+    centerGrad.addColorStop(0.7, '#4e342e');
+    centerGrad.addColorStop(1, '#1a0c08');
+    ctx.fillStyle = centerGrad;
+    ctx.fill();
+    
+    ctx.restore();
+}
+
+let globalRotation = 0;
+
+// Bucle de renderizado óptimo a 60fps
+function render() {
+    ctx.fillStyle = 'rgba(2, 1, 8, 0.08)';
+    ctx.fillRect(0, 0, width, height);
+
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+
+    const cx = width / 2;
+    const cy = height * 0.7;
+    globalRotation += 0.003; // Rotación lenta y sutil de las cabezas de las flores
+
+    // Renderizado de tallos vectoriales limpios
+    ctx.save();
+    ctx.lineWidth = 3.5;
+    ctx.strokeStyle = '#1b5e20';
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = '#4caf50';
+
+    // Tallo Izquierdo
+    ctx.beginPath();
+    ctx.moveTo(cx, height);
+    ctx.quadraticCurveTo(cx - 100, cy + 120, cx - 110, cy + 50);
+    ctx.stroke();
+
+    // Tallo Derecho
+    ctx.beginPath();
+    ctx.moveTo(cx, height);
+    ctx.quadraticCurveTo(cx + 100, cy + 120, cx + 110, cy + 50);
+    ctx.stroke();
+
+    // Tallo Central
+    ctx.beginPath();
+    ctx.moveTo(cx, height);
+    ctx.quadraticCurveTo(cx, cy + 90, cx, cy - 50);
+    ctx.stroke();
+    ctx.restore();
+
+    // Dibujamos las tres flores en las puntas de los tallos
+    drawElegantFlower(cx - 110, cy + 50, 45, -globalRotation);
+    drawElegantFlower(cx + 110, cy + 50, 45, globalRotation);
+    drawElegantFlower(cx, cy - 50, 60, globalRotation * 0.5);
+
+    requestAnimationFrame(render);
+}
+
+function toggleAudio() {
+    const song = document.getElementById('bg-song');
+    const btn = document.querySelector('.btn-audio');
+    
+    if (song.paused) {
+        song.play().catch(() => console.log("Se requiere interacción del usuario"));
+        btn.innerText = "⏸️ Pausar Sonido";
+    } else {
+        song.pause();
+        btn.innerText = "🎵 Activar Sonido";
+    }
+}
+
+render();
