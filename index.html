@@ -30,41 +30,43 @@
 
     .ui {
       position: absolute;
-      bottom: 30px;
+      bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-    }
-
-    .btn-audio {
-      background: rgba(255, 202, 40, 0.15);
-      border: 1px solid #ffca28;
-      color: #ffca28;
-      padding: 12px 28px;
-      border-radius: 50px;
-      font-size: 16px;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-      box-shadow: 0 0 20px rgba(255, 202, 40, 0.2);
-    }
-
-    .btn-audio:hover {
-      background: rgba(255, 202, 40, 0.3);
-      transform: scale(1.05);
+      gap: 14px;
+      width: 90%;
+      max-width: 420px;
     }
 
     .mensaje {
       color: #fff59d;
-      font-size: 18px;
+      font-size: 17px;
       text-align: center;
-      text-shadow: 0 0 10px rgba(255, 202, 40, 0.6);
-      opacity: 0.9;
-      max-width: 90vw;
+      text-shadow: 0 0 12px rgba(255, 202, 40, 0.55);
+      line-height: 1.4;
+      opacity: 0.95;
+    }
+
+    .btn-audio {
+      background: rgba(255, 202, 40, 0.12);
+      border: 1px solid #ffca28;
+      color: #ffca28;
+      padding: 11px 26px;
+      border-radius: 50px;
+      font-size: 15px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      box-shadow: 0 0 18px rgba(255, 202, 40, 0.18);
+    }
+
+    .btn-audio:hover {
+      background: rgba(255, 202, 40, 0.25);
+      transform: scale(1.04);
     }
   </style>
 </head>
@@ -77,10 +79,9 @@
     <button class="btn-audio" onclick="toggleAudio()">🎵 Activar Sonido</button>
   </div>
 
-  <!-- Pon aquí tu canción (opcional) -->
-  <!-- <audio id="bg-song" loop src="musica.mp3"></audio> -->
+  <!-- Aquí puedes poner tu canción después -->
   <audio id="bg-song" loop>
-    <!-- Si no tienes archivo, puedes dejarlo vacío o usar un link de internet -->
+    <!-- <source src="tu-musica.mp3" type="audio/mpeg"> -->
   </audio>
 
   <script>
@@ -96,7 +97,7 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Clase encargada de generar chispas estelares doradas
+    // Partículas doradas (polvo estelar)
     class SpaceDust {
       constructor() {
         this.reset();
@@ -128,12 +129,11 @@
       }
     }
 
-    // Llenamos el espacio con 100 partículas de polvo
     for (let i = 0; i < 100; i++) {
       particles.push(new SpaceDust());
     }
 
-    // Algoritmo matemático para el renderizado procedural de las flores amarillas
+    // Flor elegante con pétalos en degradado
     function drawElegantFlower(centerX, centerY, size, rotationOffset) {
       ctx.save();
       ctx.translate(centerX, centerY);
@@ -159,7 +159,7 @@
         ctx.fill();
       }
 
-      // Botón o centro orgánico de la flor
+      // Centro de la flor
       ctx.beginPath();
       ctx.arc(0, 0, size / 3.8, 0, Math.PI * 2);
       let centerGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, size / 3.8);
@@ -174,8 +174,8 @@
 
     let globalRotation = 0;
 
-    // Bucle de renderizado óptimo a 60fps
     function render() {
+      // Efecto de estela suave
       ctx.fillStyle = 'rgba(2, 1, 8, 0.08)';
       ctx.fillRect(0, 0, width, height);
 
@@ -187,7 +187,7 @@
       const cx = width / 2;
       const cy = height * 0.7;
 
-      globalRotation += 0.003; // Rotación lenta y sutil
+      globalRotation += 0.003;
 
       // Tallos
       ctx.save();
@@ -196,19 +196,19 @@
       ctx.shadowBlur = 8;
       ctx.shadowColor = '#4caf50';
 
-      // Tallo Izquierdo
+      // Izquierdo
       ctx.beginPath();
       ctx.moveTo(cx, height);
       ctx.quadraticCurveTo(cx - 100, cy + 120, cx - 110, cy + 50);
       ctx.stroke();
 
-      // Tallo Derecho
+      // Derecho
       ctx.beginPath();
       ctx.moveTo(cx, height);
       ctx.quadraticCurveTo(cx + 100, cy + 120, cx + 110, cy + 50);
       ctx.stroke();
 
-      // Tallo Central
+      // Central
       ctx.beginPath();
       ctx.moveTo(cx, height);
       ctx.quadraticCurveTo(cx, cy + 90, cx, cy - 50);
@@ -228,7 +228,7 @@
       const btn = document.querySelector('.btn-audio');
 
       if (song.paused) {
-        song.play().catch(() => console.log("Se requiere interacción del usuario"));
+        song.play().catch(() => console.log("Se necesita interacción del usuario"));
         btn.innerText = "⏸️ Pausar Sonido";
       } else {
         song.pause();
