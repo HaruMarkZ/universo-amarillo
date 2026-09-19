@@ -3,225 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mi Persona Favorita 💛</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background: radial-gradient(circle at center, #1a1502 0%, #070601 60%, #000000 100%);
-            font-family: 'Arial', sans-serif;
-            min-height: 100vh;
-            overflow: hidden;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-        }
-
-        /* Espacio de la Galaxia */
-        .galaxy-universe {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
-        }
-
-        /* Mensaje Principal en el Fondo */
-        .main-title {
-            position: absolute;
-            bottom: 8%;
-            font-size: 2.2rem;
-            color: #fff;
-            text-shadow: 0 0 15px #ffeb3b, 0 0 30px #fbc02d;
-            font-weight: bold;
-            letter-spacing: 2px;
-            z-index: 20;
-            animation: pulseText 3s infinite ease-in-out;
-        }
-
-        /* Corazón Central de la Galaxia */
-        .galaxy-core-heart {
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            background: url('https://icons8.com') no-repeat center/contain;
-            filter: drop-shadow(0 0 35px #ffeb3b);
-            z-index: 10;
-            animation: floatHeart 4s infinite ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .galaxy-core-heart::before {
-            content: "Te amo 💛";
-            position: absolute;
-            top: -40px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 10px #ffeb3b;
-            white-space: nowrap;
-        }
-
-        /* Sistema de Ramos de Flores Orbitando */
-        .orbit-system {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            transform-style: preserve-3d;
-            animation: rotateSystem 25s linear infinite;
-        }
-
-        /* Mensajes y Ramos Flotantes individuales */
-        .floating-item {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transform-style: preserve-3d;
-        }
-
-        .floating-item img {
-            width: 55px;
-            height: 55px;
-            filter: drop-shadow(0 0 12px #ffeb3b);
-            animation: jitter 3s infinite ease-in-out;
-        }
-
-        .floating-item span {
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: #fff;
-            margin-top: 5px;
-            text-shadow: 0 0 8px #ffeb3b, 0 0 15px #000;
-            white-space: nowrap;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 2px 8px;
-            border-radius: 10px;
-        }
-
-        /* Posiciones distribuidas en la galaxia simulando la imagen */
-        .pos-1 { top: 15%; left: 20%; }
-        .pos-2 { top: 12%; left: 75%; }
-        .pos-3 { top: 40%; left: 5%; }
-        .pos-4 { top: 35%; left: 85%; }
-        .pos-5 { top: 70%; left: 25%; }
-        .pos-6 { top: 65%; left: 70%; }
-        .pos-7 { top: 25%; left: 48%; }
-
-        /* Partículas de Polvo Dorado */
-        .gold-dust {
-            position: absolute;
-            background: radial-gradient(circle, #fff, #ffeb3b 40%, transparent);
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 8px #ffeb3b;
-        }
-
-        /* Animaciones */
-        @keyframes rotateSystem {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes floatHeart {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-15px) scale(1.08); }
-        }
-
-        @keyframes pulseText {
-            0%, 100% { opacity: 0.9; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); }
-        }
-
-        @keyframes jitter {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(5deg); }
-        }
-    </style>
+    <title>Universo de Flores Amarillas | Madait 🌌</title>
+    <!-- Vinculamos el CSS externo -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="galaxy-universe">
-        <!-- Ramo Principal en el Corazón de la Galaxia -->
-        <div class="galaxy-core-heart"></div>
-
-        <!-- Sistema de flores y mensajes flotantes -->
-        <div class="orbit-system">
-            <div class="floating-item pos-1">
-                <img src="https://icons8.com" alt="flor">
-                <span>Eres mi sol ☀️</span>
-            </div>
-            <div class="floating-item pos-2">
-                <img src="https://icons8.com" alt="flor">
-                <span>Eres preciosa ✨</span>
-            </div>
-            <div class="floating-item pos-3">
-                <img src="https://icons8.com" alt="flor">
-                <span>Siempre juntos 🤝</span>
-            </div>
-            <div class="floating-item pos-4">
-                <img src="https://icons8.com" alt="flor">
-                <span>Mi amor 💕</span>
-            </div>
-            <div class="floating-item pos-5">
-                <img src="https://icons8.com" alt="ramo">
-                <span>Me encantas 😍</span>
-            </div>
-            <div class="floating-item pos-6">
-                <img src="https://icons8.com" alt="flor">
-                <span>Amor de mi vida 👑</span>
-            </div>
-            <div class="floating-item pos-7">
-                <img src="https://icons8.com" alt="ramo">
-                <span>Para ti sola 💐</span>
-            </div>
-        </div>
-
-        <!-- Texto inferior fijo -->
-        <div class="main-title">Eres mi todo 🌻</div>
+    <!-- Contenedor del Espacio Profundo -->
+    <div class="space-container">
+        <!-- Nebulosas generadas por CSS -->
+        <div class="nebula purple-nebula"></div>
+        <div class="nebula gold-nebula"></div>
+        
+        <!-- Capa de Estrellas -->
+        <div id="stars-layer"></div>
     </div>
 
-    <script>
-        // Generador de Nebulosa y Polvo Dorado Cósmico de Fondo
-        function crearPolvoEstelar() {
-            const universo = document.querySelector('.galaxy-universe');
-            const cantidadEstrellas = 150;
+    <!-- Interfaz de Usuario e Interacción -->
+    <div class="interface-wrapper">
+        <h1 class="cosmic-title">MADAIT</h1>
+        <p class="cosmic-subtitle">Giras en el centro de mi universo entero ✨</p>
+        
+        <!-- Lienzo interactivo donde se procesan las flores y partículas -->
+        <canvas id="galaxy-canvas"></canvas>
 
-            for (let i = 0; i < cantidadEstrellas; i++) {
-                const estrella = document.createElement('div');
-                estrella.classList.add('gold-dust');
-                
-                // Distribución aleatoria por toda la pantalla
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const tamano = Math.random() * 5 + 2; // Tamaños de chispas
-                
-                estrella.style.left = `${x}vw`;
-                estrella.style.top = `${y}vh`;
-                estrella.style.width = `${tamano}px`;
-                estrella.style.height = `${tamano}px`;
-                
-                // Efecto de brillo parpadeante asíncrono
-                estrella.style.opacity = Math.random();
-                estrella.style.animation = `pulseText ${2 + Math.random() * 3}s infinite alternate`;
-                
-                universo.appendChild(estrella);
-            }
-        }
+        <div class="music-controller">
+            <!-- AQUÍ PUEDES REEMPLAZAR 'tu-cancion.mp3' POR EL LINK DE TU MÚSICA LUEGO -->
+            <audio id="bg-song" loop src="tu-cancion.mp3"></audio>
+            <button class="btn-audio" onclick="toggleAudio()">🎵 Activar Música</button>
+        </div>
+    </div>
 
-        window.onload = crearPolvoEstelar;
-    </script>
+    <!-- Vinculamos la lógica de JS al final -->
+    <script src="main.js"></script>
 </body>
 </html>
-
