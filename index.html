@@ -3,38 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universo de Flores Amarillas | Madait 🌌</title>
-    <!-- Vinculamos el CSS externo -->
-    <link rel="stylesheet" href="style.css">
+    <title>Universo Floral 🌌🌻</title>
+    <!-- Jalamos el CSS desde su nueva carpeta -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Contenedor del Espacio Profundo -->
+    <!-- Contenedor del Espacio Profundo y Nebulosas -->
     <div class="space-container">
-        <!-- Nebulosas generadas por CSS -->
         <div class="nebula purple-nebula"></div>
         <div class="nebula gold-nebula"></div>
-        
-        <!-- Capa de Estrellas -->
-        <div id="stars-layer"></div>
     </div>
 
-    <!-- Interfaz de Usuario e Interacción -->
+    <!-- Contenedor de la Interfaz Estilizada -->
     <div class="interface-wrapper">
-        <h1 class="cosmic-title">MADAIT</h1>
-        <p class="cosmic-subtitle">Giras en el centro de mi universo entero ✨</p>
+        <div class="glass-card">
+            <h1 class="cosmic-title">Universo Amarillo</h1>
+            <p class="cosmic-subtitle">Un detalle especial creado en el espacio profundo</p>
+        </div>
         
-        <!-- Lienzo interactivo donde se procesan las flores y partículas -->
+        <!-- Lienzo interactivo para las flores y el polvo cósmico -->
         <canvas id="galaxy-canvas"></canvas>
 
+        <!-- Controlador de Audio Organizado -->
         <div class="music-controller">
-            <!-- AQUÍ PUEDES REEMPLAZAR 'tu-cancion.mp3' POR EL LINK DE TU MÚSICA LUEGO -->
-            <audio id="bg-song" loop src="tu-cancion.mp3"></audio>
-            <button class="btn-audio" onclick="toggleAudio()">🎵 Activar Música</button>
+            <!-- La música apuntará a la carpeta music/ cuando subas tu canción -->
+            <audio id="bg-song" loop src="music/tu-cancion.mp3"></audio>
+            <button class="btn-audio" onclick="toggleAudio()">🎵 Activar Sonido</button>
         </div>
     </div>
 
-    <!-- Vinculamos la lógica de JS al final -->
-    <script src="main.js"></script>
+    <!-- Jalamos la lógica JS desde su nueva carpeta -->
+    <script src="js/main.js"></script>
 </body>
 </html>
