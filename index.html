@@ -12,7 +12,7 @@
     }
 
     body {
-      background: #000;
+      background: #020108;
       overflow: hidden;
       font-family: system-ui, -apple-system, sans-serif;
       height: 100vh;
@@ -30,7 +30,7 @@
 
     .ui {
       position: absolute;
-      bottom: 32px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -44,30 +44,30 @@
     }
 
     .mensaje {
-      color: #ffe082;
+      color: #fff59d;
       font-size: 16px;
       text-align: center;
-      text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+      text-shadow: 0 0 12px rgba(255, 202, 40, 0.5);
       line-height: 1.45;
       opacity: 0.95;
     }
 
     .btn-audio {
       pointer-events: auto;
-      background: rgba(0, 0, 0, 0.45);
-      border: 1.5px solid #ffca28;
+      background: rgba(255, 202, 40, 0.1);
+      border: 1px solid #ffca28;
       color: #ffca28;
-      padding: 10px 24px;
+      padding: 11px 26px;
       border-radius: 50px;
       font-size: 15px;
       cursor: pointer;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
       transition: all 0.25s ease;
-      box-shadow: 0 0 15px rgba(255, 202, 40, 0.25);
+      box-shadow: 0 0 18px rgba(255, 202, 40, 0.2);
     }
 
     .btn-audio:hover {
-      background: rgba(255, 202, 40, 0.15);
+      background: rgba(255, 202, 40, 0.22);
       transform: scale(1.04);
     }
   </style>
@@ -77,8 +77,8 @@
   <canvas id="galaxy-canvas"></canvas>
 
   <div class="ui">
-    <p class="mensaje">Para todas las chicas que no han recibido sus flores<br>amarillas 🌻</p>
-    <button class="btn-audio" onclick="toggleAudio()">♪ Activar Sonido</button>
+    <p class="mensaje">Para todas las chicas que no han recibido sus flores amarillas 🌻</p>
+    <button class="btn-audio" onclick="toggleAudio()">🎵 Activar Sonido</button>
   </div>
 
   <audio id="bg-song" loop>
@@ -98,134 +98,128 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Partículas alargadas (rayitos dorados)
-    class Particle {
+    // Partículas de polvo estelar dorado
+    class SpaceDust {
       constructor() {
         this.reset();
+        this.y = Math.random() * height;
       }
       reset() {
         this.x = Math.random() * width;
-        this.y = height + Math.random() * 100;
-        this.length = Math.random() * 18 + 8;
-        this.speed = Math.random() * 1.8 + 0.8;
-        this.alpha = Math.random() * 0.6 + 0.3;
-        this.size = Math.random() * 1.8 + 0.6;
+        this.y = height + 20;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = Math.random() * 0.6 + 0.15;
+        this.speedX = Math.sin(Math.random() * Math.PI) * 0.2;
+        this.alpha = Math.random() * 0.5 + 0.2;
       }
       update() {
-        this.y -= this.speed;
-        if (this.y < -this.length) this.reset();
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -20) this.reset();
       }
       draw() {
         ctx.save();
         ctx.globalAlpha = this.alpha;
-        ctx.strokeStyle = '#ffca28';
-        ctx.lineWidth = this.size;
-        ctx.lineCap = 'round';
-        ctx.shadowBlur = 6;
+        ctx.fillStyle = '#ffca28';
+        ctx.shadowBlur = 8;
         ctx.shadowColor = '#ffca28';
         ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x, this.y + this.length);
-        ctx.stroke();
-        ctx.restore();
-      }
-    }
-
-    for (let i = 0; i < 120; i++) {
-      particles.push(new Particle());
-    }
-
-    // Flor redonda suave (estilo de la imagen)
-    function drawSoftFlower(x, y, size) {
-      ctx.save();
-      ctx.translate(x, y);
-
-      // Brillo exterior
-      const glow = ctx.createRadialGradient(0, 0, size * 0.3, 0, 0, size * 1.3);
-      glow.addColorStop(0, 'rgba(255, 236, 100, 0.45)');
-      glow.addColorStop(1, 'rgba(255, 200, 0, 0)');
-      ctx.fillStyle = glow;
-      ctx.beginPath();
-      ctx.arc(0, 0, size * 1.3, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Pétalos (capa externa)
-      const petals = 16;
-      for (let i = 0; i < petals; i++) {
-        const angle = (i / petals) * Math.PI * 2;
-        ctx.save();
-        ctx.rotate(angle);
-
-        const petalGrad = ctx.createLinearGradient(0, 0, 0, -size);
-        petalGrad.addColorStop(0, '#ff8f00');
-        petalGrad.addColorStop(0.4, '#ffca28');
-        petalGrad.addColorStop(1, '#fff59d');
-
-        ctx.fillStyle = petalGrad;
-        ctx.beginPath();
-        ctx.ellipse(0, -size * 0.55, size * 0.28, size * 0.55, 0, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
+    }
 
-      // Centro oscuro
-      const centerGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 0.32);
-      centerGrad.addColorStop(0, '#3e2723');
-      centerGrad.addColorStop(0.7, '#5d4037');
-      centerGrad.addColorStop(1, '#2c1a12');
-      ctx.fillStyle = centerGrad;
+    for (let i = 0; i < 100; i++) {
+      particles.push(new SpaceDust());
+    }
+
+    // Flor elegante con 14 pétalos (estilo galaxia original)
+    function drawElegantFlower(centerX, centerY, size, rotationOffset) {
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(rotationOffset);
+
+      const petals = 14;
+      for (let i = 0; i < petals; i++) {
+        ctx.rotate((Math.PI * 2) / petals);
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-size / 2, -size / 2, -size / 2.5, -size, 0, -size);
+        ctx.bezierCurveTo(size / 2.5, -size, size / 2, -size / 2, 0, 0);
+
+        let petalGrad = ctx.createLinearGradient(0, 0, 0, -size);
+        petalGrad.addColorStop(0, '#e65100');
+        petalGrad.addColorStop(0.4, '#ffb300');
+        petalGrad.addColorStop(1, '#fff59d');
+
+        ctx.fillStyle = petalGrad;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#ffb300';
+        ctx.fill();
+      }
+
+      // Centro de la flor
       ctx.beginPath();
-      ctx.arc(0, 0, size * 0.32, 0, Math.PI * 2);
+      ctx.arc(0, 0, size / 3.8, 0, Math.PI * 2);
+      let centerGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, size / 3.8);
+      centerGrad.addColorStop(0, '#2e1c16');
+      centerGrad.addColorStop(0.7, '#4e342e');
+      centerGrad.addColorStop(1, '#1a0c08');
+      ctx.fillStyle = centerGrad;
       ctx.fill();
 
       ctx.restore();
     }
 
+    let globalRotation = 0;
+
     function render() {
-      // Fondo negro con leve estela
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+      // Efecto de estela espacial
+      ctx.fillStyle = 'rgba(2, 1, 8, 0.08)';
       ctx.fillRect(0, 0, width, height);
 
-      // Partículas
       particles.forEach(p => {
         p.update();
         p.draw();
       });
 
       const cx = width / 2;
-      const cy = height * 0.68;
+      const cy = height * 0.7;
+
+      globalRotation += 0.003;
 
       // Tallos
       ctx.save();
-      ctx.strokeStyle = '#2e7d32';
-      ctx.lineWidth = 5;
-      ctx.lineCap = 'round';
-      ctx.shadowBlur = 6;
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = '#1b5e20';
+      ctx.shadowBlur = 8;
       ctx.shadowColor = '#4caf50';
-
-      // Tallo central
-      ctx.beginPath();
-      ctx.moveTo(cx, height);
-      ctx.quadraticCurveTo(cx, cy + 80, cx, cy - 10);
-      ctx.stroke();
 
       // Tallo izquierdo
       ctx.beginPath();
       ctx.moveTo(cx, height);
-      ctx.quadraticCurveTo(cx - 60, cy + 100, cx - 85, cy + 45);
+      ctx.quadraticCurveTo(cx - 100, cy + 120, cx - 110, cy + 50);
       ctx.stroke();
 
       // Tallo derecho
       ctx.beginPath();
       ctx.moveTo(cx, height);
-      ctx.quadraticCurveTo(cx + 60, cy + 100, cx + 85, cy + 45);
+      ctx.quadraticCurveTo(cx + 100, cy + 120, cx + 110, cy + 50);
+      ctx.stroke();
+
+      // Tallo central
+      ctx.beginPath();
+      ctx.moveTo(cx, height);
+      ctx.quadraticCurveTo(cx, cy + 90, cx, cy - 50);
       ctx.stroke();
       ctx.restore();
 
-      // Flores (estilo redondo suave)
-      drawSoftFlower(cx, cy - 10, 52);        // central (más grande)
-      drawSoftFlower(cx - 85, cy + 45, 38);   // izquierda
-      drawSoftFlower(cx + 85, cy + 45, 38);   // derecha
+      // Flores
+      drawElegantFlower(cx - 110, cy + 50, 45, -globalRotation);
+      drawElegantFlower(cx + 110, cy + 50, 45, globalRotation);
+      drawElegantFlower(cx, cy - 50, 60, globalRotation * 0.5);
 
       requestAnimationFrame(render);
     }
@@ -239,7 +233,7 @@
         btn.innerText = "⏸️ Pausar Sonido";
       } else {
         song.pause();
-        btn.innerText = "♪ Activar Sonido";
+        btn.innerText = "🎵 Activar Sonido";
       }
     }
 
