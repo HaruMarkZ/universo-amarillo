@@ -22,7 +22,6 @@
       position: relative;
     }
 
-    /* Corazones de fondo */
     .heart-bg {
       position: absolute;
       inset: 0;
@@ -44,7 +43,6 @@
       100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
     }
 
-    /* Tarjeta principal */
     .card {
       position: relative;
       width: 90%;
@@ -58,15 +56,8 @@
         0 0 25px rgba(255, 193, 7, 0.35),
         0 15px 40px rgba(0,0,0,0.45);
       z-index: 2;
-      animation: cardIn 0.9s ease-out;
     }
 
-    @keyframes cardIn {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    /* Brillo superior */
     .card::before {
       content: '';
       position: absolute;
@@ -92,10 +83,8 @@
       color: #ffecb3;
       font-size: 14px;
       margin-bottom: 20px;
-      opacity: 0.95;
     }
 
-    /* Círculo del conejito */
     .bunny-circle {
       width: 160px;
       height: 160px;
@@ -107,39 +96,15 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 18px rgba(255, 193, 7, 0.4);
-      position: relative;
       overflow: hidden;
     }
 
-    .bunny-group {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: bounce 2.6s ease-in-out infinite;
-    }
-
-    .bunny {
-      font-size: 68px;
-      line-height: 1;
-      z-index: 1;
-      filter: drop-shadow(0 3px 4px rgba(0,0,0,0.12));
-    }
-
-    .bouquet {
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 36px;
-      z-index: 2;
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
-      white-space: nowrap;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
+    /* Aquí va el GIF */
+    .bunny-gif {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      border-radius: 50%;
     }
 
     .message {
@@ -164,10 +129,8 @@
 
     .btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 7px 22px rgba(255, 179, 0, 0.55);
     }
 
-    /* Carta emergente */
     .overlay {
       position: fixed;
       inset: 0;
@@ -187,16 +150,10 @@
       background: linear-gradient(160deg, #fff8e1, #ffecb3);
       border-radius: 18px;
       padding: 26px 22px;
-      max-width: 320px;
+      max-width: 300px;
       width: 100%;
       text-align: center;
       box-shadow: 0 18px 45px rgba(0,0,0,0.4);
-      animation: letterIn 0.35s ease;
-    }
-
-    @keyframes letterIn {
-      from { opacity: 0; transform: scale(0.92) translateY(15px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     .letter h2 {
@@ -207,8 +164,8 @@
 
     .letter p {
       color: #5d4037;
-      font-size: 14.5px;
-      line-height: 1.6;
+      font-size: 15px;
+      line-height: 1.55;
       margin-bottom: 18px;
     }
 
@@ -220,7 +177,6 @@
       border-radius: 50px;
       font-weight: 600;
       cursor: pointer;
-      font-size: 14px;
     }
   </style>
 </head>
@@ -233,10 +189,8 @@
     <div class="subtitle">para ti, Blanca 🌻</div>
 
     <div class="bunny-circle">
-      <div class="bunny-group">
-        <div class="bunny">🐰</div>
-        <div class="bouquet">🌼🌻🌼</div>
-      </div>
+      <!-- PEGA AQUÍ EL LINK DE TU GIF -->
+      <img src="AQUÍ_VA_EL_LINK_DEL_GIF" alt="Conejo con flores" class="bunny-gif">
     </div>
 
     <div class="message">
@@ -251,17 +205,14 @@
     <div class="letter">
       <h2>Para Blanca 💛</h2>
       <p>
-        Solo quería enviarte esto.<br><br>
-        Aunque ya no estemos juntos, todavía hay días en los que pienso en ti… y en lo bonito que fue.<br><br>
-        Espero que estés bien.<br>
-        Estas flores son solo un pequeño detalle para recordarte que alguien aún se acuerda de ti.
+        Solo quería enviarte estas flores.<br><br>
+        Espero que estés bien.
       </p>
       <button class="close-btn" onclick="cerrarCarta()">Cerrar</button>
     </div>
   </div>
 
   <script>
-    // Corazones flotantes
     const container = document.getElementById('hearts');
     for (let i = 0; i < 16; i++) {
       const h = document.createElement('span');
