@@ -13,7 +13,7 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(ellipse at center, #2d0a1f 0%, #1a0512 60%, #0d0209 100%);
+      background: radial-gradient(ellipse at center, #2d0a1f 0%, #1a0512 70%, #0d0209 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,10 +22,10 @@
       position: relative;
     }
 
+    /* Corazones de fondo */
     .heart-bg {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       overflow: hidden;
     }
@@ -33,147 +33,141 @@
     .heart-bg span {
       position: absolute;
       color: #ff4d6d;
-      font-size: 18px;
-      opacity: 0.25;
-      animation: floatHeart 12s linear infinite;
+      opacity: 0.22;
+      animation: floatHeart 11s linear infinite;
     }
 
     @keyframes floatHeart {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.3; }
-      90% { opacity: 0.2; }
-      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      15%  { opacity: 0.25; }
+      85%  { opacity: 0.18; }
+      100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
     }
 
+    /* Tarjeta principal */
     .card {
       position: relative;
       width: 90%;
-      max-width: 380px;
-      background: linear-gradient(145deg, #3d1a0a, #5c2e0e);
-      border-radius: 28px;
-      padding: 30px 24px 28px;
+      max-width: 340px;
+      background: linear-gradient(160deg, #4a2108, #3a1a06);
+      border-radius: 22px;
+      padding: 28px 22px 26px;
       text-align: center;
+      border: 3px solid #ffd54f;
       box-shadow: 
-        0 0 0 4px #ffd54f,
-        0 0 30px rgba(255, 193, 7, 0.45),
-        0 20px 50px rgba(0,0,0,0.5);
+        0 0 25px rgba(255, 193, 7, 0.35),
+        0 15px 40px rgba(0,0,0,0.45);
       z-index: 2;
-      animation: cardAppear 1s ease-out;
+      animation: cardIn 0.9s ease-out;
     }
 
-    @keyframes cardAppear {
-      from { opacity: 0; transform: scale(0.85) translateY(30px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+    @keyframes cardIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    .heart-frame {
+    /* Brillo superior */
+    .card::before {
+      content: '';
       position: absolute;
-      top: -18px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 92%;
-      height: 70px;
-      background: radial-gradient(ellipse at center, transparent 40%, #ffd54f 70%, #ffb300 100%);
-      border-radius: 50% 50% 0 0;
-      opacity: 0.7;
-      filter: blur(1px);
-      z-index: -1;
+      width: 70%;
+      height: 18px;
+      background: radial-gradient(ellipse, rgba(255, 213, 79, 0.55), transparent 70%);
+      border-radius: 0 0 50% 50%;
+      pointer-events: none;
     }
 
     .title {
       color: #fff8e1;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
-      margin-bottom: 4px;
-      text-shadow: 0 0 12px rgba(255, 213, 79, 0.7);
+      margin-bottom: 2px;
+      text-shadow: 0 0 10px rgba(255, 213, 79, 0.6);
     }
 
     .subtitle {
       color: #ffecb3;
-      font-size: 15px;
-      margin-bottom: 18px;
-      opacity: 0.9;
+      font-size: 14px;
+      margin-bottom: 20px;
+      opacity: 0.95;
     }
 
-    .bunny-box {
-      background: radial-gradient(circle at center, #fffde7 0%, #fff8e1 100%);
-      border-radius: 50%;
-      width: 190px;
-      height: 190px;
+    /* Círculo del conejito */
+    .bunny-circle {
+      width: 160px;
+      height: 160px;
       margin: 0 auto 18px;
+      background: #fff8e1;
+      border-radius: 50%;
+      border: 4px solid #ffd54f;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 
-        0 0 0 6px #ffd54f,
-        0 0 25px rgba(255, 193, 7, 0.5);
+      box-shadow: 0 0 18px rgba(255, 193, 7, 0.4);
       position: relative;
       overflow: hidden;
     }
 
-    .bunny-wrapper {
+    .bunny-group {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: bunnyBounce 2.4s ease-in-out infinite;
+      animation: bounce 2.6s ease-in-out infinite;
     }
 
     .bunny {
-      font-size: 82px;
+      font-size: 68px;
       line-height: 1;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
-      z-index: 2;
+      z-index: 1;
+      filter: drop-shadow(0 3px 4px rgba(0,0,0,0.12));
     }
 
     .bouquet {
       position: absolute;
-      bottom: 12px;
+      bottom: -6px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 42px;
-      z-index: 3;
-      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
-      animation: bouquetSway 3s ease-in-out infinite;
+      font-size: 36px;
+      z-index: 2;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+      white-space: nowrap;
     }
 
-    @keyframes bunnyBounce {
+    @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-9px); }
-    }
-
-    @keyframes bouquetSway {
-      0%, 100% { transform: translateX(-50%) rotate(-3deg); }
-      50% { transform: translateX(-50%) rotate(3deg); }
+      50%      { transform: translateY(-8px); }
     }
 
     .message {
       color: #ffe082;
-      font-size: 15px;
-      line-height: 1.55;
-      margin-bottom: 22px;
-      padding: 0 6px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
 
     .btn {
-      display: inline-block;
       background: linear-gradient(135deg, #ffca28, #ffb300);
       color: #3e2723;
       font-weight: 700;
       font-size: 15px;
-      padding: 13px 32px;
+      padding: 12px 30px;
       border-radius: 50px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(255, 179, 0, 0.4);
+      box-shadow: 0 5px 18px rgba(255, 179, 0, 0.4);
       transition: all 0.25s ease;
     }
 
     .btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(255, 179, 0, 0.55);
+      box-shadow: 0 7px 22px rgba(255, 179, 0, 0.55);
     }
 
+    /* Carta emergente */
     .overlay {
       position: fixed;
       inset: 0;
@@ -181,7 +175,7 @@
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 100;
+      z-index: 50;
       padding: 20px;
     }
 
@@ -190,31 +184,31 @@
     }
 
     .letter {
-      background: linear-gradient(145deg, #fff8e1, #ffecb3);
-      border-radius: 20px;
-      padding: 28px 24px;
-      max-width: 340px;
+      background: linear-gradient(160deg, #fff8e1, #ffecb3);
+      border-radius: 18px;
+      padding: 26px 22px;
+      max-width: 320px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-      animation: letterIn 0.4s ease;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.4);
+      animation: letterIn 0.35s ease;
     }
 
     @keyframes letterIn {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from { opacity: 0; transform: scale(0.92) translateY(15px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     .letter h2 {
       color: #e65100;
-      font-size: 22px;
-      margin-bottom: 14px;
+      font-size: 20px;
+      margin-bottom: 12px;
     }
 
     .letter p {
       color: #5d4037;
-      font-size: 15px;
-      line-height: 1.65;
+      font-size: 14.5px;
+      line-height: 1.6;
       margin-bottom: 18px;
     }
 
@@ -222,10 +216,11 @@
       background: #ff8f00;
       color: white;
       border: none;
-      padding: 10px 24px;
+      padding: 9px 22px;
       border-radius: 50px;
       font-weight: 600;
       cursor: pointer;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -234,13 +229,11 @@
   <div class="heart-bg" id="hearts"></div>
 
   <div class="card">
-    <div class="heart-frame"></div>
-
     <div class="title">Flores Amarillas</div>
     <div class="subtitle">para ti, Blanca 🌻</div>
 
-    <div class="bunny-box">
-      <div class="bunny-wrapper">
+    <div class="bunny-circle">
+      <div class="bunny-group">
         <div class="bunny">🐰</div>
         <div class="bouquet">🌼🌻🌼</div>
       </div>
@@ -268,15 +261,16 @@
   </div>
 
   <script>
-    const heartsContainer = document.getElementById('hearts');
-    for (let i = 0; i < 18; i++) {
-      const heart = document.createElement('span');
-      heart.innerHTML = '♥';
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.animationDuration = (8 + Math.random() * 10) + 's';
-      heart.style.animationDelay = Math.random() * 8 + 's';
-      heart.style.fontSize = (14 + Math.random() * 16) + 'px';
-      heartsContainer.appendChild(heart);
+    // Corazones flotantes
+    const container = document.getElementById('hearts');
+    for (let i = 0; i < 16; i++) {
+      const h = document.createElement('span');
+      h.innerHTML = '♥';
+      h.style.left = Math.random() * 100 + '%';
+      h.style.fontSize = (13 + Math.random() * 14) + 'px';
+      h.style.animationDuration = (7 + Math.random() * 9) + 's';
+      h.style.animationDelay = Math.random() * 7 + 's';
+      container.appendChild(h);
     }
 
     function mostrarCarta() {
