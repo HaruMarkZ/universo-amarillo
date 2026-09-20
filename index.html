@@ -22,7 +22,6 @@
       position: relative;
     }
 
-    /* Corazones flotantes de fondo */
     .heart-bg {
       position: absolute;
       width: 100%;
@@ -67,7 +66,6 @@
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* Marco de corazón dorado */
     .heart-frame {
       position: absolute;
       top: -18px;
@@ -114,37 +112,38 @@
       overflow: hidden;
     }
 
+    .bunny-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+
     .bunny {
-      font-size: 92px;
+      font-size: 78px;
       line-height: 1;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
-      animation: bounce 2.5s ease-in-out infinite;
+    }
+
+    .flowers-held {
+      font-size: 32px;
+      margin-top: -18px;
+      margin-left: 8px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .flowers {
-      position: absolute;
-      bottom: 18px;
-      right: 22px;
-      font-size: 38px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      50% { transform: translateY(-7px); }
     }
 
     .message {
       color: #ffe082;
       font-size: 15px;
-      line-height: 1.5;
+      line-height: 1.55;
       margin-bottom: 22px;
-      padding: 0 8px;
-    }
-
-    .message strong {
-      color: #fff59d;
-      font-size: 17px;
+      padding: 0 6px;
     }
 
     .btn {
@@ -159,7 +158,6 @@
       cursor: pointer;
       box-shadow: 0 6px 20px rgba(255, 179, 0, 0.4);
       transition: all 0.25s ease;
-      text-decoration: none;
     }
 
     .btn:hover {
@@ -167,11 +165,6 @@
       box-shadow: 0 8px 25px rgba(255, 179, 0, 0.55);
     }
 
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    /* Modal del mensaje */
     .overlay {
       position: fixed;
       inset: 0;
@@ -212,7 +205,7 @@
     .letter p {
       color: #5d4037;
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.65;
       margin-bottom: 18px;
     }
 
@@ -229,7 +222,6 @@
 </head>
 <body>
 
-  <!-- Corazones de fondo -->
   <div class="heart-bg" id="hearts"></div>
 
   <div class="card">
@@ -239,35 +231,34 @@
     <div class="subtitle">para ti, Blanca 🌻</div>
 
     <div class="bunny-box">
-      <div class="bunny">🐰</div>
-      <div class="flowers">🌼</div>
+      <div class="bunny-container">
+        <div class="bunny">🐰</div>
+        <div class="flowers-held">🌼🌻</div>
+      </div>
     </div>
 
     <div class="message">
-      Aunque nos separamos…<br>
-      yo aún te pienso.<br>
-      <strong>Quiero tenerte de vuelta.</strong>
+      Vi estas flores amarillas<br>
+      y no pude evitar pensar en ti…
     </div>
 
     <button class="btn" onclick="mostrarCarta()">CLICK AQUÍ →</button>
   </div>
 
-  <!-- Carta que se abre -->
   <div class="overlay" id="overlay">
     <div class="letter">
       <h2>Para Blanca 💛</h2>
       <p>
-        Sé que salimos antes y que las cosas no terminaron como esperábamos.<br><br>
-        Pero cada vez que veo flores amarillas, pienso en ti.<br><br>
-        Quiero volver a intentarlo… contigo.<br><br>
-        ¿Me darías otra oportunidad?
+        Solo quería enviarte esto.<br><br>
+        Aunque ya no estemos juntos, todavía hay días en los que pienso en ti… y en lo bonito que fue.<br><br>
+        Espero que estés bien.<br>
+        Estas flores son solo un pequeño detalle para recordarte que alguien aún se acuerda de ti.
       </p>
       <button class="close-btn" onclick="cerrarCarta()">Cerrar</button>
     </div>
   </div>
 
   <script>
-    // Generar corazones flotantes
     const heartsContainer = document.getElementById('hearts');
     for (let i = 0; i < 18; i++) {
       const heart = document.createElement('span');
