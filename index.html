@@ -10,7 +10,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       min-height: 100vh;
       background: radial-gradient(ellipse at center, #2d0a1f 0%, #1a0512 70%, #0d0209 100%);
@@ -21,28 +20,24 @@
       overflow: hidden;
       position: relative;
     }
-
     .heart-bg {
       position: absolute;
       inset: 0;
       pointer-events: none;
       overflow: hidden;
     }
-
     .heart-bg span {
       position: absolute;
       color: #ff4d6d;
       opacity: 0.22;
       animation: floatHeart 11s linear infinite;
     }
-
     @keyframes floatHeart {
       0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
       15%  { opacity: 0.25; }
       85%  { opacity: 0.18; }
       100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
     }
-
     .card {
       position: relative;
       width: 90%;
@@ -57,7 +52,6 @@
         0 15px 40px rgba(0,0,0,0.45);
       z-index: 2;
     }
-
     .card::before {
       content: '';
       position: absolute;
@@ -69,7 +63,6 @@
       background: radial-gradient(ellipse, rgba(255, 213, 79, 0.55), transparent 70%);
       border-radius: 0 0 50% 50%;
     }
-
     .title {
       color: #fff8e1;
       font-size: 24px;
@@ -77,13 +70,11 @@
       margin-bottom: 2px;
       text-shadow: 0 0 10px rgba(255, 213, 79, 0.6);
     }
-
     .subtitle {
       color: #ffecb3;
       font-size: 14px;
       margin-bottom: 20px;
     }
-
     .bunny-circle {
       width: 160px;
       height: 160px;
@@ -97,20 +88,17 @@
       box-shadow: 0 0 18px rgba(255, 193, 7, 0.4);
       overflow: hidden;
     }
-
     .bunny-img {
       width: 135px;
       height: 135px;
       object-fit: contain;
     }
-
     .message {
       color: #ffe082;
       font-size: 14.5px;
       line-height: 1.5;
       margin-bottom: 20px;
     }
-
     .btn {
       background: linear-gradient(135deg, #ffca28, #ffb300);
       color: #3e2723;
@@ -123,11 +111,9 @@
       box-shadow: 0 5px 18px rgba(255, 179, 0, 0.4);
       transition: all 0.25s ease;
     }
-
     .btn:hover {
       transform: scale(1.05);
     }
-
     .overlay {
       position: fixed;
       inset: 0;
@@ -138,11 +124,9 @@
       z-index: 50;
       padding: 20px;
     }
-
     .overlay.active {
       display: flex;
     }
-
     .letter {
       background: linear-gradient(160deg, #fff8e1, #ffecb3);
       border-radius: 18px;
@@ -152,20 +136,17 @@
       text-align: center;
       box-shadow: 0 18px 45px rgba(0,0,0,0.4);
     }
-
     .letter h2 {
       color: #e65100;
       font-size: 20px;
       margin-bottom: 12px;
     }
-
     .letter p {
       color: #5d4037;
       font-size: 15px;
       line-height: 1.55;
       margin-bottom: 18px;
     }
-
     .close-btn {
       background: #ff8f00;
       color: white;
@@ -178,6 +159,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Audio de Floricienta -->
+  <audio id="audio-player" src="img_Floricienta.mp3" preload="auto" loop></audio>
 
   <div class="heart-bg" id="hearts"></div>
 
@@ -211,6 +195,7 @@
   </div>
 
   <script>
+    // Corazones flotantes
     const container = document.getElementById('hearts');
     for (let i = 0; i < 16; i++) {
       const h = document.createElement('span');
@@ -222,8 +207,26 @@
       container.appendChild(h);
     }
 
+    // Reproducir música
+    const audio = document.getElementById('audio-player');
+    audio.volume = 0.6; // volumen al 60%
+
+    // Intenta reproducir automáticamente
+    audio.play().catch(() => {
+      // Si el navegador bloquea el autoplay, se reproduce al primer clic
+      document.body.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play().catch(() => {});
+        }
+      }, { once: true });
+    });
+
     function mostrarCarta() {
       document.getElementById('overlay').classList.add('active');
+      // Asegura que suene al abrir la carta
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      }
     }
 
     function cerrarCarta() {
